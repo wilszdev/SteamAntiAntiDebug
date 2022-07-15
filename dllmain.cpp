@@ -30,15 +30,15 @@ static void Inject(HANDLE process)
 static void WriteAbsoluteJump(void* dst, void* address)
 {
 #ifdef _X64BUILD
-		// mov rax, address
-		// jmp rax
-		uint8_t codeBytes[] = { 0x48, 0xB8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xE0 };
+	// mov rax, address
+	// jmp rax
+	uint8_t codeBytes[] = { 0x48, 0xB8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xE0 };
 #define ABS_JMP_ADDR_OFFSET 2
 #else
-		// not very efficient, uses 2 bytes more than a relative jump
-		// mov eax, address
-		// jmp eax
-		uint8_t codeBytes[] = { 0xB8, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xE0 };
+	// not very efficient, uses 2 bytes more than a relative jump
+	// mov eax, address
+	// jmp eax
+	uint8_t codeBytes[] = { 0xB8, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xE0 };
 #define ABS_JMP_ADDR_OFFSET 1
 #endif
 	*(void**)(codeBytes + ABS_JMP_ADDR_OFFSET) = address;
@@ -49,9 +49,9 @@ static void WriteAbsoluteJump(void* dst, void* address)
 static bool Hook(void* src, void* dst, size_t length)
 {
 #ifdef _X64BUILD
-		if (length < 12) return false;
+	if (length < 12) return false;
 #else
-		if (length < 7) return false;
+	if (length < 7) return false;
 #endif
 
 	DWORD oldProtect;
@@ -177,7 +177,6 @@ static CREATEPROCESSW_FN(hkCreateProcessW)
 
 void AntiDebugHook()
 {
-
 	HMODULE ntdll = GetModuleHandleA("ntdll");
 	if (!ntdll) return;
 
