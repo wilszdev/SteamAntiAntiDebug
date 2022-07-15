@@ -1,5 +1,4 @@
 #include <Windows.h>
-#include <malloc.h>
 #include <cstdint>
 
 static char g_dllPath[MAX_PATH] = {};
